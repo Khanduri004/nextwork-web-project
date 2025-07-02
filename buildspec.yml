@@ -16,7 +16,7 @@ phases:
       - test -s awscliv2.zip || (echo "Download failed or file is empty" && exit 1)
 
       - echo Unzipping AWS CLI...
-      - unzip awscliv2.zip
+      - unzip -o awscliv2.zip
 
       - echo Installing AWS CLI...
       - sudo ./aws/install
