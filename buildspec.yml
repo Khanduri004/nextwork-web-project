@@ -8,9 +8,11 @@ phases:
       - echo Installing AWS CLI and logging into CodeArtifact
       - aws --version
       - echo "Verifying CodeArtifact token retrieval"
-      - aws codeartifact get-authorization-token --domain nextwrok --domain-owner 257394474969 --region us-west-2
+      - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwrok --domain-owner 257394474969 --region us-west-2 --query authorizationToken --output text)
+
       - echo "login in "
-      - aws codeartifact login --tool mvn --repository nextwrok-devops-cicd --domain nextwrok --domain-owner 257394474969 --region us-west-2
+      - aws codeartifact login --tool mvn --repository nextwork-repo --domain nextwrok --domain-owner 257394474969 --region us-west-2
+
 
   build:
     commands:
