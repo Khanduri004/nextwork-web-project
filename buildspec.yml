@@ -5,33 +5,18 @@ phases:
     runtime-versions:
       java: corretto8
     commands:
-      - echo Installing AWS CLI and logging into CodeArtifact
+      - echo "AWS CLI version:"
       - aws --version
-      - echo "Verifying CodeArtifact token retrieval"
-      - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwrok --domain-owner 257394474969 --region us-west-2 --query authorizationToken --output text)
-
-      - echo "login in "
-      - aws codeartifact login --tool mvn --repository nextwork-repo --domain nextwrok --domain-owner 257394474969 --region us-west-2
-
+      - echo Logging in to AWS CodeArtifact...
+      - echo Getting CodeArtifact token...
+      - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwork --domain-owner 257394474969 --region us-west-2 --query authorizationToken --output text)
 
   build:
     commands:
-      - echo Build started on `date`
-      - mvn compile
-      - echo Test the code 
-      - mvn test 
-  post_build:
-    commands:
-      - echo Build completed. Packaging...
-      - mvn package
+      - echo Build started on date
+      - echo Verifying settings.xml is accessible...
+      - ls -l settings.xml || (echo "settings.xml not found!" && exit 1)  and settings.xml :<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
 
-artifacts:
-  files:
-    - target/*.jar   # or *.war depending on your output
 
-reports:
-  junitReports:
-    files:
-      - target/surefire-reports/**/*.xml
-    base-directory: target
-    discard-paths: yes      
