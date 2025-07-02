@@ -1,4 +1,4 @@
-version: 0.2
+version: 0.3
 
 phases:
   install:
@@ -8,7 +8,7 @@ phases:
       - echo "AWS CLI version:"
       - aws --version
       - echo Logging in to AWS CodeArtifact...
-      -  - aws codeartifact login --tool mvn --repository nextwork-devops-cicd --domain nextwrok --domain-owner 257394474969 --region us-west-2  
+      - aws codeartifact login --tool mvn --repository nextwork-devops-cicd --domain nextwrok --domain-owner 257394474969 --region us-west-2  
       - echo Getting CodeArtifact token...
       - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwork --domain-owner 257394474969 --region us-west-2 --query authorizationToken --output text)
 
