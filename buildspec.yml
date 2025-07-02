@@ -13,7 +13,7 @@ phases:
 
       - echo Verifying downloaded file...
       - ls -lh awscli-exe-linux-x86_64.zip
-      - file awscli-exe-linux-x86_64.zip
+      
 
       - echo Unzipping AWS CLI...
       - unzip awscli-exe-linux-x86_64.zip
