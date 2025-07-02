@@ -5,11 +5,22 @@ phases:
     runtime-versions:
       java: corretto8
     commands:
-      - echo Installing AWS CLI v2
-      - yum install -y unzip 
-      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      - unzip awscliv2.zip
+      - echo Installing unzip...
+      - yum install -y unzip
+
+      - echo Downloading AWS CLI v2...
+      - curl -O https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+
+      - echo Verifying downloaded file...
+      - ls -lh awscli-exe-linux-x86_64.zip
+      - file awscli-exe-linux-x86_64.zip
+
+      - echo Unzipping AWS CLI...
+      - unzip awscli-exe-linux-x86_64.zip
+
+      - echo Installing AWS CLI...
       - sudo ./aws/install
+
       - echo Logging in to AWS CodeArtifact...
       - aws codeartifact login --tool mvn --repository nextwork-repo --domain nextwork --domain-owner 257394474969 --region us-west-2
 
