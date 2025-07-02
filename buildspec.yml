@@ -18,5 +18,5 @@ phases:
       - pwd
       - ls -l  
       - ls -l settings.xml || (echo "settings.xml not found!" && exit 1)
-      - mvn -s settings.xml compile
+      - mvn -s settings.xml clean verify
 
