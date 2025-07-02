@@ -1,40 +1,22 @@
-version: 0.2
+install:
+  runtime-versions:
+    java: corretto8
+  commands:
+    - echo Installing unzip...
+    - yum install -y unzip
 
-phases:
-  install:
-    runtime-versions:
-      java: corretto8
-    commands:
-      - echo Installing unzip...
-      - yum install -y unzip
+    - echo Downloading AWS CLI v2...
+    - curl -sS -o awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 
-      - echo Downloading AWS CLI v2...
-      - curl -O https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    - echo Verifying download...
+    - ls -lh awscliv2.zip
+    - test -s awscliv2.zip || (echo "Download failed or file is empty" && exit 1)
 
-      - echo Verifying downloaded file...
-      - ls -lh awscli-exe-linux-x86_64.zip
-      
+    - echo Unzipping AWS CLI...
+    - unzip awscliv2.zip
 
-      - echo Unzipping AWS CLI...
-      - unzip awscli-exe-linux-x86_64.zip
+    - echo Installing AWS CLI...
+    - sudo ./aws/install
 
-      - echo Installing AWS CLI...
-      - sudo ./aws/install
-
-      - echo Logging in to AWS CodeArtifact...
-      - aws codeartifact login --tool mvn --repository nextwork-repo --domain nextwork --domain-owner 257394474969 --region us-west-2
-
-  build:
-    commands:
-      - echo Build started on `date`
-      - mvn compile
-
-  post_build:
-    commands:
-      - echo Build completed on `date`
-      - mvn package
-
-artifacts:
-  files:
-    - target/nextwork-web-project.war
-  discard-paths: no
+    - echo Logging in to AWS CodeArtifact...
+    - aws codeartifact login --tool mvn --repository nextwork-repo --domain nextwork --domain-owner 257394474969 --region us-west-2
