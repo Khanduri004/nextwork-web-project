@@ -5,21 +5,21 @@ phases:
     runtime-versions:
       java: corretto8
     commands:
-      - echo Logging in to AWS CodeArtifact...
+      - echo Getting CodeArtifact auth token...
       - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwork --domain-owner 257394474969 --region us-west-2 --query authorizationToken --output text)
-      - aws codeartifact login --tool mvn --repository nextwork-repo --domain nextwork --domain-owner 257394474969 --region us-west-2
 
   build:
     commands:
       - echo Build started on `date`
-      - mvn compile
+      - mvn -s settings.xml compile
 
   post_build:
     commands:
       - echo Build completed on `date`
-      - mvn package
+      - mvn -s settings.xml package
 
 artifacts:
   files:
     - target/nextwork-web-project.war
   discard-paths: no
+
