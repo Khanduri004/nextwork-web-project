@@ -5,15 +5,14 @@ phases:
     runtime-versions:
       java: corretto8
     commands:
-       - echo "AWS CLI version:"
+      - echo "AWS CLI version:"
       - aws --version
       - echo Logging in to AWS CodeArtifact...
-      - aws codeartifact login --tool mvn --repository nextwork-repo --domain nextwork --domain-o          wner 257394474969 --region us-west-2
+      - aws codeartifact login --tool mvn --repository nextwork-repo --domain nextwork --domain-owner 257394474969 --region us-west-2
 
   build:
     commands:
       - echo Build started on `date`
       - echo Verifying settings.xml is accessible...
-      - ls -l settings.xml || (echo "settings.xml not found!" && exit 1
-
+      - ls -l settings.xml || (echo "settings.xml not found!" && exit 1)
 
