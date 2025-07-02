@@ -5,21 +5,34 @@ phases:
     runtime-versions:
       java: corretto8
     commands:
+      - echo Installing unzip...
+      - yum install -y unzip
+
+      - echo Downloading AWS CLI v2...
+      - curl -sS -o awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+
+      - echo Verifying download...
+      - ls -lh awscliv2.zip
+      - test -s awscliv2.zip || (echo "Download failed or file is empty" && exit 1)
+
+      - echo Unzipping AWS CLI...
+      - unzip -o awscliv2.zip
+
+      - echo Installing AWS CLI...
+      - sudo ./aws/install
+
       - echo Getting CodeArtifact auth token...
-      - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwork --domain-owner 257394474969 --region us-west-2 --query authorizationToken --output text)
+      - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
+          --domain nextwork \
+          --domain-owner 257394474969 \
+          --region us-west-2 \
+          --query authorizationToken \
+          --output text)
 
   build:
     commands:
       - echo Build started on `date`
-      - mvn -s settings.xml compile
+      - echo Verifying settings.xml is accessible...
+      - ls -l settings.xml || (echo "settings.xml not found!" && exit 1
 
-  post_build:
-    commands:
-      - echo Build completed on `date`
-      - mvn -s settings.xml package
-
-artifacts:
-  files:
-    - target/nextwork-web-project.war
-  discard-paths: no
 
