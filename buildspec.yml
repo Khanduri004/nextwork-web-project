@@ -7,13 +7,13 @@ phases:
     commands:
       - echo "AWS CLI version:"
       - aws --version
-      - echo Logging in to AWS CodeArtifact..
+      - echo Logging in to AWS CodeArtifact...
       - echo Getting CodeArtifact token...
-      - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwork --domain-owner 257394474969 --region us-west-2 --query authorizationToken --output text)
+      - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwrok --domain-owner 257394474969 --region us-west-2 --query authorizationToken --output text)
 
   build:
     commands:
-      - echo Build started on date
+      - echo Build started on `date`
       - echo Verifying settings.xml is accessible...
       - pwd
       - ls -l  
