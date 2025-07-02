@@ -16,4 +16,17 @@ phases:
       - echo Build started on `date`
       - echo Verifying settings.xml is accessible...
       - ls -l settings.xml || (echo "settings.xml not found!" && exit 1)
+      - echo "Running Maven compile"
+      - mvn -s settings.xml compile
+      - echo "Running Maven tests"
+      - mvn -s settings.xml test
+  post_build:
+    commands:
+      - echo "Packaging the build"
+      - mvn -s settings.xml package
+      - echo "Build completed on `date`"
+
+  artifacts:
+    files:
+      - target/*.jar  
 
