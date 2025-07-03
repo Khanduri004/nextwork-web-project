@@ -21,9 +21,9 @@ phases:
       - mvn -s settings.xml clean verify
 
   artifacts:
-  files:
-    - target/nextwork-web-project.war
-    - appspec.yml
-    - scripts/**/*
-  discard-paths: no
+    files:
+     - target/nextwork-web-project.war
+     - appspec.yml
+     - scripts/**/*
+    discard-paths: no
         
