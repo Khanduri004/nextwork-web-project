@@ -20,3 +20,10 @@ phases:
       - ls -l settings.xml || (echo "settings.xml not found!" && exit 1)
       - mvn -s settings.xml clean verify
 
+  artifacts:
+  files:
+    - target/nextwork-web-project.war
+    - appspec.yml
+    - scripts/**/*
+  discard-paths: no
+        
