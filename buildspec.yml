@@ -25,5 +25,6 @@ phases:
      - target/nextwork-web-project.war
      - appspec.yml
      - scripts/**/*
-  discard-paths: false
+    
+    discard-paths: false
         
